@@ -35,3 +35,6 @@ logging:
   level:
     com.quizapp: DEBUG
     org.springframework.security: INFO
+    com.zaxxer.hikari: DEBUG
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    org.hibernate.engine.jdbc.connections: DEBUG
