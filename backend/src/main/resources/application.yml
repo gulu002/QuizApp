@@ -6,7 +6,7 @@ spring:
     name: quiz-app
 
   datasource:
-    url: jdbc:mysql://localhost:3306/quiz_app?useUnicode=true&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/quiz_app?useUnicode=true&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true}
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
