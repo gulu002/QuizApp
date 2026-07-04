@@ -6,7 +6,7 @@ spring:
     name: quiz-app
 
   datasource:
-    url: jdbc:mysql://localhost:3306/quiz_app?useUnicode=true&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/quiz_app?useUnicode=true&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true}
     username: ${DB_USERNAME:root}
     password: ${DB_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -27,7 +27,7 @@ spring:
 
 # JWT Configuration
 jwt:
-  secret: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY3ODkwYWJjZGVmZ2hpamtsbW5vcA==
+  secret: ${JWT_SECRET:YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY3ODkwYWJjZGVmZ2hpamtsbW5vcA==}
   expiration: 604800000  # 7 days in milliseconds
 
 # Logging
