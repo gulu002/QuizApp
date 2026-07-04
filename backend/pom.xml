@@ -15,7 +15,7 @@
     <artifactId>quiz-app-backend</artifactId>
     <version>1.0.0</version>
     <name>quiz-app-backend</name>
-    <description>嘉年华刷题 App 后端服务</description>
+    <description>刷题 App 后端服务</description>
 
     <properties>
         <java.version>8</java.version>
@@ -45,6 +45,7 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
+            <version>9.3.0</version>
             <scope>runtime</scope>
         </dependency>
 
