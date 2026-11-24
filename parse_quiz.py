@@ -54,6 +54,11 @@ def parse_quiz_bank(input_file, output_file):
         correct_answers.sort()
         correct_answer = ''.join(correct_answers)
 
+        # 源文档未标记判断题：仅 2 个选项且为"正确/错误"的题目识别为 JUDGE
+        if question_type == 'SINGLE' and len(options) == 2 and \
+                all(('正确' in o['text'] or '错误' in o['text']) for o in options):
+            question_type = 'JUDGE'
+
         # 生成 options_json
         options_json = json.dumps(options, ensure_ascii=False)
 
@@ -83,7 +88,9 @@ def parse_quiz_bank(input_file, output_file):
     print(f"输出文件：{output_file}")
 
 if __name__ == '__main__':
+    import os
+    base = os.path.dirname(os.path.abspath(__file__))
     parse_quiz_bank(
-        r'g:\QuizApp\quiz_bank.md',
-        r'g:\QuizApp\backend\src\main\resources\init_questions.sql'
+        os.path.join(base, 'quiz_bank.md'),
+        os.path.join(base, 'backend', 'src', 'main', 'resources', 'init_questions.sql')
     )

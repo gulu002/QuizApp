@@ -97,6 +97,9 @@ public class PracticeServiceImpl implements PracticeService {
         session.setQuestionType(dto.getQuestionType());
         session.setCategoryId(dto.getCategoryId());
         session.setTotalCount(questions.size());
+        session.setQuestionIds(questions.stream()
+                .map(q -> String.valueOf(q.getId()))
+                .collect(java.util.stream.Collectors.joining(",")));
         session.setCorrectCount(0);
         session.setStartTime(LocalDateTime.now());
         session.setStatus(1);
@@ -222,11 +225,23 @@ public class PracticeServiceImpl implements PracticeService {
 
     @Override
     public Result<List<QuestionVO>> getSessionQuestions(Long userId, String sessionId) {
-        List<AnswerRecord> records = answerRecordRepository.findByUserIdAndSessionId(userId, sessionId);
-        List<Long> questionIds = records.stream()
-                .map(AnswerRecord::getQuestionId)
-                .distinct()
-                .collect(Collectors.toList());
+        Optional<PracticeSession> sessionOpt = practiceSessionRepository.findBySessionIdAndUserId(sessionId, userId);
+        List<Long> questionIds;
+        if (sessionOpt.isPresent() && sessionOpt.get().getQuestionIds() != null
+                && !sessionOpt.get().getQuestionIds().isEmpty()) {
+            // 优先使用会话开始时持久化的题目列表，保证题目顺序与内容稳定
+            questionIds = Arrays.stream(sessionOpt.get().getQuestionIds().split(","))
+                    .filter(s -> !s.trim().isEmpty())
+                    .map(s -> Long.valueOf(s.trim()))
+                    .collect(Collectors.toList());
+        } else {
+            // 兼容旧会话：回退到已作答记录
+            List<AnswerRecord> records = answerRecordRepository.findByUserIdAndSessionId(userId, sessionId);
+            questionIds = records.stream()
+                    .map(AnswerRecord::getQuestionId)
+                    .distinct()
+                    .collect(Collectors.toList());
+        }
         if (questionIds.isEmpty()) {
             return Result.success(Collections.emptyList());
         }

@@ -49,4 +49,6 @@ def execute_sql_file(sql_file):
         conn.close()
 
 if __name__ == '__main__':
-    execute_sql_file(r'g:\QuizApp\backend\src\main\resources\init_questions.sql')
+    import os
+    base = os.path.dirname(os.path.abspath(__file__))
+    execute_sql_file(os.path.join(base, 'backend', 'src', 'main', 'resources', 'init_questions.sql'))

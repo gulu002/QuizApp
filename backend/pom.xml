@@ -18,7 +18,7 @@
     <description>刷题 App 后端服务</description>
 
     <properties>
-        <java.version>8</java.version>
+        <java.version>17</java.version>
         <jjwt.version>0.11.5</jjwt.version>
     </properties>
 

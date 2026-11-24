@@ -152,7 +152,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Result<Long> countByType(String questionType) {
-        long count = questionRepository.countByQuestionType(questionType);
+        long count = (questionType == null || questionType.trim().isEmpty())
+                ? questionRepository.count()
+                : questionRepository.countByQuestionType(questionType);
         return Result.success(count);
     }
 

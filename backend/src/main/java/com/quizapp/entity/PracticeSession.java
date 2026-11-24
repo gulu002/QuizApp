@@ -45,6 +45,11 @@ public class PracticeSession {
     @Column(name = "total_count")
     private Integer totalCount;
 
+    /** 会话题目ID列表（逗号分隔，开始时持久化，用于恢复会话题目） */
+    @Lob
+    @Column(name = "question_ids", columnDefinition = "TEXT")
+    private String questionIds;
+
     /** 答对题数 */
     @Column(name = "correct_count")
     private Integer correctCount;
