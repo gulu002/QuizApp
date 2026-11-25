@@ -1,0 +1,14 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports: ["8080:8080"]
+    volumes:
+      - ./backend/target/classes:/app/target/classes
+      - ./backend/src/main/resources:/app/src/main/resources
+      - m2:/root/.m2
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+volumes:
+  m2:

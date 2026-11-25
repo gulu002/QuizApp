@@ -4,11 +4,15 @@ server:
 spring:
   application:
     name: quiz-app
-
+  devtools:
+    restart:  # 开启自动重启
+      enabled: true
+      poll-interval: 500ms  # 监听文件变化的轮询间隔
+      quiet-period: 300ms  # 监听文件变化的静默周期
   datasource:
     url: jdbc:mysql://${MYSQLHOST:localhost}:${MYSQLPORT:3306}/${MYSQLDATABASE:quiz_app}?useUnicode=true&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-    username: ${MYSQLUSER:root}
-    password: ${MYSQLPASSWORD:root}
+    username: ${MYSQLUSER}
+    password: ${MYSQLPASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -17,7 +21,6 @@ spring:
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
 
   jackson:

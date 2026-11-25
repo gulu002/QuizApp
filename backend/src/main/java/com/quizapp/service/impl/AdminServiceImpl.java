@@ -14,7 +14,7 @@ import com.quizapp.repository.UserRepository;
 import com.quizapp.repository.UserStatsRepository;
 import com.quizapp.service.AdminService;
 import com.quizapp.vo.PageVO;
-import javax.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
